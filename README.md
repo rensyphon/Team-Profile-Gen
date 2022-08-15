@@ -10,7 +10,7 @@ After downloading the repository from [Github](https://github.com/rensyphon/Team
 
 ## Usage
 
-Instructions on usage may be found [here]().
+Instructions on usage may be found [here](https://drive.google.com/file/d/1pzAAzwezJjWDaE-rsRa4jVH-8doeWWaR/view).
 
 ## Credits
 
