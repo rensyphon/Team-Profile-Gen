@@ -1,0 +1,24 @@
+header {
+    text-align: center;
+    font-size: xx-large;
+    background-color: blue;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    font-weight: bolder;
+}
+
+#employeeCard {
+    border-radius: 5px;
+    box-shadow: 1px 4px;
+    color: white;
+    background-color: green;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    margin-left: 5px;
+    margin-right: 5px;
+    align-items: center;
+    padding-top: 5px;
+    padding-right: 5px;
+    padding-bottom: 5px;
+    padding-left: 5px;
+  }

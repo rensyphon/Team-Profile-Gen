@@ -9,11 +9,11 @@ test('tests that each constructor parameter returns appropriately', () => {
 });
 
 test('tests getGithub() returns Github username', () => {
-    const engineer = new Engineer('David', 24, 'david@email.com', 'dave2000')
+    const engineer = new Engineer('David', 24, 'david@email.com', 'david2000')
     expect(engineer.getGithub()).toBe('david2000');
 })
 
 test('tests getRole() returns role', () => {
-    const engineer = new Engineer('David', 24, 'david@email.com', 'dave2000')   
+    const engineer = new Engineer('David', 24, 'david@email.com', 'david2000')   
     expect(engineer.getRole()).toBe('Engineer');
 });

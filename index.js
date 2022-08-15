@@ -2,113 +2,46 @@ const inquirer = require("inquirer");
 const fs = require('fs');
 const generateHTML = require('./src/generateHTML')
 
-const Employee = require('./lib/Employee')
+let allResponseData = {
+    manager: null,
+    engineers: [],
+    interns: []
+};
+
 const Manager = require('./lib/Manager')
 const Engineer = require('./lib/Engineer')
 const Intern = require('./lib/Intern')
 
-// const managerQuestions = [
-//     {
-//         type: 'input',
-//         message: 'What is your name?',
-//         name: 'managerName',
-//     },
-//     {
-//         type: 'input',
-//         message: 'What is your employee ID?',
-//         name: 'managerId',
-//     },
-//     {
-//         type: 'input',
-//         message: 'What is your email?',
-//         name: 'managerEmail',
-//     },
-//     {
-//         type: 'input',
-//         message: 'What is your office number?',
-//         name: 'officeNumber',
-//     },
-//     {
-//         type: 'list',
-//         message: `What type of employee do you wish to add?`,
-//         choices: ['engineer', 'intern', 'none'],
-//         name: 'choice',
-//     },
-// ];
-
-// const engineerQuestions = [
-//     {
-//         type: 'input',
-//         message: `What is the engineer's name?`,
-//         name: 'engineerName',
-//     },
-//     {
-//         type: 'input',
-//         message: `What is the engineer's ID?`,
-//         name: 'engineerId',
-//     },
-//     {
-//         type: 'input',
-//         message: `What is the engineer's email?`,
-//         name: 'engineerEmail',
-//     },
-//     {
-//         type: 'input',
-//         message: `What is the engineer's Github username?`,
-//         name: 'github',
-//     },
-// ];
-
-// const internQuestions = [
-//     {
-//         type: 'input',
-//         message: `What is the intern's name?`,
-//         name: 'internName',
-//     },
-//     {
-//         type: 'input',
-//         message: `What is the intern's ID?`,
-//         name: 'internId',
-//     },
-//     {
-//         type: 'input',
-//         message: `What is the intern's email?`,
-//         name: 'internEmail',
-//     },
-//     {
-//         type: 'input',
-//         message: `What is the intern's school?`,
-//         name: 'school',
-//     },
-// ];
-
-const questions = [
+const initialQuestions = [
     {
         type: 'input',
-        message: 'What is your name?',
+        message: 'What is the team manager\'s name?',
         name: 'managerName',
     },
     {
         type: 'input',
-        message: 'What is your employee ID?',
+        message: 'What is the team manager\'s employee ID?',
         name: 'managerId',
     },
     {
         type: 'input',
-        message: 'What is your email?',
+        message: 'What is the team manager\'s email?',
         name: 'managerEmail',
     },
     {
         type: 'input',
-        message: 'What is your office number?',
-        name: 'officeNumber',
+        message: 'What is the team manager\'s office number?',
+        name: 'managerOfficeNumber',
     },
     {
         type: 'list',
-        message: `What type of employee do you wish to add?`,
-        choices: ['engineer', 'intern', 'none'],
+        message: `What would you like to do next?`,
+        choices: ['add Engineer', 'add Intern', 'finish building team'],
         name: 'choice',
-    },
+    }
+];
+
+const engineerQuestions = [
     {
         type: 'input',
         message: `What is the engineer's name?`,
@@ -127,8 +60,17 @@ const questions = [
     {
         type: 'input',
         message: `What is the engineer's Github username?`,
-        name: 'github',
+        name: 'engineerGithub',
     },
+    {
+        type: 'list',
+        message: `What would you like to do next?`,
+        choices: ['add Engineer', 'add Intern', 'finish building team'],
+        name: 'choice',
+    }
+];
+
+const internQuestions = [
     {
         type: 'input',
         message: `What is the intern's name?`,
@@ -147,8 +89,14 @@ const questions = [
     {
         type: 'input',
         message: `What is the intern's school?`,
-        name: 'school',
+        name: 'internSchool',
     },
+    {
+        type: 'list',
+        message: `What would you like to do next?`,
+        choices: ['add Engineer', 'add Intern', 'finish building team'],
+        name: 'choice',
+    }
 ];
 
 //function to write HTML file
@@ -158,13 +106,48 @@ function writeToFile(fileName, data) {
     );
 }
 
+function handleChoice(choice) {
+    if (choice === 'finish building team') {
+        writeToFile('./dist/index.html', generateHTML(allResponseData));
+    } else if (choice === 'add Engineer') {
+        addEngineer()
+    } else if (choice === 'add Intern') {
+        addIntern()
+    }
+}
+
+function addIntern() {
+    inquirer
+        .prompt(internQuestions)
+        .then((response) => {
+            const {choice, internName, internId, internEmail, internSchool} = response;
+            const newIntern = new Intern(internName, internId, internEmail, internSchool);
+            allResponseData.interns.push(newIntern);
+
+            handleChoice(choice);
+        });
+}
+
+function addEngineer() {
+    inquirer
+        .prompt(engineerQuestions)
+        .then((response) => {
+            const {choice, engineerName, engineerId, engineerEmail, engineerGithub} = response;
+            const newEngineer = new Engineer(engineerName, engineerId, engineerEmail, engineerGithub);
+            allResponseData.engineers.push(newEngineer);
+
+            handleChoice(choice);
+        });
+}
+
 //function to initialize app
 function init() {
     inquirer
-        .prompt(questions)
+        .prompt(initialQuestions)
         .then((response) => {
-            console.log(response)
-            writeToFile('./dist/index.html', generateHTML(response))
+            const {choice, managerName, managerId, managerEmail, managerOfficeNumber} = response;
+            allResponseData.manager = new Manager(managerName, managerId, managerEmail, managerOfficeNumber);
+            handleChoice(choice);
         });
 }
 

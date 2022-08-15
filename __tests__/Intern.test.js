@@ -9,7 +9,7 @@ test('tests that each constructor parameter returns appropriately', () => {
 });
 
 test('tests getSchool() returns school', () => {
-    const intern = new Intern('David', 24, 'david@email.com', 'Standford')
+    const intern = new Intern('David', 24, 'david@email.com', 'Stanford')
     expect(intern.getSchool()).toBe('Stanford');
 })
 
