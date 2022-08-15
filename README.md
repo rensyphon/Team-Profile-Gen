@@ -2,16 +2,11 @@
 
 ## Description
 
-Provide a short description explaining the what, why, and how of your project. Use the following questions as a guide:
-
-- What was your motivation?
-- Why did you build this project? (Note: the answer is not "Because it was a homework assignment.")
-- What problem does it solve?
-- What did you learn?
+This project creates a command line application that prompts the user for employee information, then generates an HTML file displaying that information in card form. It is written in Javascript, with some HTML and CSS. It utilizes requires Inquirer and Jest for testing.
 
 ## Installation
 
-After downloading the repository and opening in a code editor, type `npm i` to install necessary packages. After this, type `node index.js` to run the program.
+After downloading the repository from [Github](https://github.com/rensyphon/Team-Profile-Gen) and opening in a code editor, type `npm i` to install necessary packages. After this, type `node index.js` to run the program.
 
 ## Usage
 
@@ -22,4 +17,6 @@ Instructions on usage may be found [here]().
 Select code originally created by University of Arizona Full Stack Coding Boot Camp, 2022. https://bootcamp.ce.arizona.edu/coding/
 
 ## Tests
+
+Type `npm test` to run tests.
 
